@@ -6,6 +6,16 @@
   <title>MathPhysics Hub — Learn &amp; Practise</title>
   <meta name="description" content="Free Mathematics and Physics notes, worked examples and quizzes for secondary school students.">
   <link rel="stylesheet" href="css/style.css">
+  <!-- Install as an app (PWA) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1f4e79">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="MathPhysics">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body data-page="home">
 
@@ -17,6 +27,22 @@
       <p>Clear notes, step-by-step worked examples and instant-marking quizzes in Mathematics and Physics.</p>
       <div class="hero-stats" id="hero-stats"></div>
     </section>
+
+    <!-- Install-as-app banner: shown by js/layout.js only when the phone can install -->
+    <section class="install-banner" id="install-banner" hidden>
+      <img src="icons/icon-192.png" alt="" width="52" height="52">
+      <div>
+        <b>Get the MathPhysics app</b>
+        <span>Install it on your phone. It opens from your home screen and works without internet.</span>
+      </div>
+      <div class="install-banner-actions">
+        <button class="btn install-trigger">Install</button>
+        <button class="install-dismiss" aria-label="Hide this message">Not now</button>
+      </div>
+    </section>
+
+    <!-- Study streak, continue where you left off, quick practice (js/home.js) -->
+    <section class="today" id="today"></section>
 
     <!-- Search and subject filter -->
     <div class="toolbar">
@@ -34,6 +60,11 @@
 
     <!-- Quick links to the other pages -->
     <section class="feature-row">
+      <a class="feature" href="quiz.html?id=mixed">
+        <span class="feature-icon">🎯</span>
+        <b>Mixed Practice</b>
+        <span>10 random questions from every topic, like a real exam.</span>
+      </a>
       <a class="feature" href="formulas.html">
         <span class="feature-icon">📐</span>
         <b>Formula Sheet</b>

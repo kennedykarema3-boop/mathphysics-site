@@ -14,6 +14,33 @@ in a browser, or in VS Code right-click `index.html` → "Open with Live Server"
 | `simulation.html` | Interactive projectile-motion simulation                        |
 | `progress.html`   | Scores, attempts and mastery for every topic                    |
 | `about.html`      | Your story and contact details (edit this!)                     |
+| `quiz.html?id=mixed` | Mixed Practice: 10 random questions from all topics          |
+| `offline.html`    | Shown if a student opens a page offline that was never saved    |
+
+## Install as an app (PWA)
+
+The site is a **Progressive Web App**: students can install it on their phone
+and it works **without internet** after the first visit.
+
+- **Android (Chrome):** an orange **Install app** button appears (header on computers,
+  inside the ☰ menu on phones, and a banner on the home page). Tap it → Install.
+- **iPhone (Safari):** the same button shows steps: Share → Add to Home Screen.
+- Files that make this work: `manifest.webmanifest` (app name, colours, icons),
+  `sw.js` (saves files for offline use), `icons/` (app icons).
+- Installing only works on **https** (GitHub Pages and Netlify are fine) or localhost.
+
+**Every time you change a file, open `sw.js` and bump `CACHE_NAME`**
+(`mathphysics-v2` → `mathphysics-v3`). Installed apps then show a
+"New lessons and fixes are ready — Update" message.
+If you add a new page or JS file, also add it to the `FILES` list in `sw.js`.
+
+## Other features
+
+- **Study streak & week chart** on the home page (opening a topic or finishing a quiz counts).
+- **Continue where you left off** card.
+- **Mixed Practice** with "topics to revise" based on wrong answers.
+- **Share my score** button (phone share menu, or WhatsApp on computers).
+- Dark mode follows the phone's setting until the student picks one.
 
 ## How the files are connected
 
@@ -52,7 +79,7 @@ every page ──loads──> js/data.js      (all the content)
 
 ## Ideas for the next version
 
-- More topics and KCSE past-paper questions.
+- More topics and KCSE past-paper questions (Probability and Pressure were added).
 - KaTeX library for textbook-style formulas.
 - User accounts and a database (Firebase or Supabase) so progress follows the student.
 - M-Pesa payments for premium content.

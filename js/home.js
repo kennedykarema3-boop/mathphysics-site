@@ -58,6 +58,42 @@ function renderStats() {
     <div><b>${done}/${TOPICS.length}</b><span>you've attempted</span></div>`;
 }
 
+/* "Today" panel: study streak, this week, continue, quick practice */
+function renderToday() {
+  const streak = getStreak();
+  const week = getLastSevenDays().map(function (d) {
+    return `<span class="day${d.active ? " on" : ""}${d.today ? " today" : ""}" title="${d.active ? "Studied" : "No study"}">${d.label}</span>`;
+  }).join("");
+
+  const last = getTopicById(getLastTopicId());
+  // Suggest: the last topic opened, otherwise the first topic not yet attempted
+  const progress = loadProgress();
+  const suggestion = last || TOPICS.find(function (t) { return !progress[t.id]; }) || TOPICS[0];
+  const label = last ? "Continue where you left off" : "Start here";
+
+  document.getElementById("today").innerHTML = `
+    <div class="today-card streak">
+      <div class="streak-top">
+        <span class="flame">${streak > 0 ? "🔥" : "✨"}</span>
+        <div>
+          <b>${streak} day${streak === 1 ? "" : "s"}</b>
+          <span>${streak > 0 ? "study streak, keep it going!" : "Study today to start a streak"}</span>
+        </div>
+      </div>
+      <div class="week" aria-label="Days studied this week">${week}</div>
+    </div>
+    <a class="today-card continue" href="topic.html?id=${suggestion.id}">
+      <span class="today-label">${label}</span>
+      <b>${suggestion.title}</b>
+      <span class="tag ${subjectClass(suggestion.subject)}">${suggestion.subject}</span>
+    </a>
+    <a class="today-card practice" href="quiz.html?id=mixed">
+      <span class="today-label">Quick practice</span>
+      <b>🎯 10 mixed questions</b>
+      <span>All topics, shuffled</span>
+    </a>`;
+}
+
 filterButtons.forEach(function (button) {
   button.addEventListener("click", function () {
     filterButtons.forEach(function (b) { b.classList.remove("active"); });
@@ -70,4 +106,5 @@ filterButtons.forEach(function (button) {
 searchBox.addEventListener("input", renderTopics);
 
 renderStats();
+renderToday();
 renderTopics();
