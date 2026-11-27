@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projectile Simulation — MathPhysics Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="simulation">
+
+  <div id="site-header"></div>
+
+  <main class="page wide">
+    <h1>Projectile Motion Simulation</h1>
+    <p class="lead">Change the launch speed and angle, press <b>Launch</b>, and compare the path with the formulas.</p>
+
+    <div class="sim-layout">
+      <div class="sim-controls">
+        <label>Launch speed: <b><span id="speed-value">20</span> m/s</b>
+          <input type="range" id="speed" min="5" max="40" value="20">
+        </label>
+        <label>Launch angle: <b><span id="angle-value">45</span>°</b>
+          <input type="range" id="angle" min="5" max="85" value="45">
+        </label>
+        <label>Gravity g:
+          <select id="gravity">
+            <option value="10">10 m/s² (KCSE value)</option>
+            <option value="9.8">9.8 m/s²</option>
+            <option value="1.6">1.6 m/s² (Moon)</option>
+          </select>
+        </label>
+        <div class="card-actions">
+          <button class="btn" id="launch">🚀 Launch</button>
+          <button class="btn btn-light" id="clear">Clear paths</button>
+        </div>
+
+        <div class="sim-results" id="results"></div>
+      </div>
+
+      <div class="sim-canvas-wrap">
+        <canvas id="canvas" width="800" height="420" aria-label="Projectile path drawing"></canvas>
+      </div>
+    </div>
+
+    <div class="note">
+      <h3>The formulas behind it</h3>
+      <div class="formula">
+        Time of flight: T = 2u sin θ / g<br>
+        Maximum height: H = u² sin²θ / 2g<br>
+        Range: R = u² sin 2θ / g
+      </div>
+      <b>Try this:</b> launch at 30° and then at 60° with the same speed. What do you notice about the range? Which angle gives the longest range?
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/simulation.js"></script>
+</body>
+</html>

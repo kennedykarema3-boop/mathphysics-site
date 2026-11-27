@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathPhysics Hub — Learn &amp; Practise</title>
+  <meta name="description" content="Free Mathematics and Physics notes, worked examples and quizzes for secondary school students.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="hero">
+      <h1>Understand it. Practise it. Master it.</h1>
+      <p>Clear notes, step-by-step worked examples and instant-marking quizzes in Mathematics and Physics.</p>
+      <div class="hero-stats" id="hero-stats"></div>
+    </section>
+
+    <!-- Search and subject filter -->
+    <div class="toolbar">
+      <input type="search" id="search" class="search" placeholder="Search topics, e.g. motion, triangle…" aria-label="Search topics">
+      <div class="filters" id="filters">
+        <button class="filter active" data-subject="All">All</button>
+        <button class="filter" data-subject="Mathematics">Mathematics</button>
+        <button class="filter" data-subject="Physics">Physics</button>
+      </div>
+    </div>
+
+    <!-- Topic cards are inserted here by js/home.js -->
+    <section class="topic-grid" id="topic-grid"></section>
+    <p class="empty" id="empty" hidden>No topics match your search.</p>
+
+    <!-- Quick links to the other pages -->
+    <section class="feature-row">
+      <a class="feature" href="formulas.html">
+        <span class="feature-icon">📐</span>
+        <b>Formula Sheet</b>
+        <span>Every key formula on one printable page.</span>
+      </a>
+      <a class="feature" href="simulation.html">
+        <span class="feature-icon">🚀</span>
+        <b>Projectile Simulation</b>
+        <span>Change the speed and angle and watch physics happen.</span>
+      </a>
+      <a class="feature" href="progress.html">
+        <span class="feature-icon">📊</span>
+        <b>My Progress</b>
+        <span>See your scores and which topics need more work.</span>
+      </a>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
