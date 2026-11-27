@@ -253,7 +253,165 @@ const TOPICS = [
     ]
   },
 
+  {
+    id: "probability",
+    subject: "Mathematics",
+    level: "Form 4",
+    title: "Probability",
+    summary: "Work out the chance of events happening, including combined and independent events.",
+    formulas: [
+      "P(A) = number of favourable outcomes / total number of outcomes",
+      "P(not A) = 1 − P(A)",
+      "Mutually exclusive: P(A or B) = P(A) + P(B)",
+      "Independent: P(A and B) = P(A) × P(B)"
+    ],
+    notes: [
+      {
+        heading: "What is probability?",
+        body: "Probability measures how likely an event is. It is always between <b>0</b> (impossible) and <b>1</b> (certain), and can be written as a fraction, decimal or percentage.<div class='formula'>P(A) = favourable outcomes / total outcomes</div>"
+      },
+      {
+        heading: "The complement",
+        body: "An event either happens or it does not, so the two probabilities add up to 1:<div class='formula'>P(not A) = 1 − P(A)</div>If the chance of rain is 0.3, the chance of no rain is 0.7."
+      },
+      {
+        heading: "Combining events",
+        body: "<ul><li><b>OR</b> (mutually exclusive events, which cannot happen together): <b>add</b> the probabilities.</li><li><b>AND</b> (independent events, where one does not affect the other): <b>multiply</b> the probabilities.</li></ul>A tree diagram helps you see every possible outcome."
+      }
+    ],
+    examples: [
+      {
+        question: "A bag has 3 red and 5 blue balls. One ball is picked at random. Find the probability that it is red, and that it is not red.",
+        steps: [
+          "Total number of balls = 3 + 5 = 8",
+          "P(red) = 3/8",
+          "P(not red) = 1 − 3/8 = 5/8"
+        ],
+        answer: "P(red) = 3/8, P(not red) = 5/8"
+      },
+      {
+        question: "A fair coin is tossed and a fair die is rolled. Find the probability of getting a head and a 6.",
+        steps: [
+          "P(head) = 1/2 and P(6) = 1/6",
+          "The coin does not affect the die, so the events are independent: multiply.",
+          "P(head and 6) = 1/2 × 1/6 = 1/12"
+        ],
+        answer: "1/12"
+      }
+    ],
+    quiz: [
+      {
+        question: "A fair die is rolled. What is the probability of getting an even number?",
+        options: ["1/6", "1/3", "1/2", "2/3"],
+        answer: 2,
+        explanation: "The even numbers are 2, 4 and 6: three out of six outcomes, so P = 3/6 = 1/2."
+      },
+      {
+        question: "The probability that it rains tomorrow is 0.3. What is the probability that it does not rain?",
+        options: ["0.3", "0.7", "1.3", "0"],
+        answer: 1,
+        explanation: "P(not rain) = 1 − 0.3 = 0.7."
+      },
+      {
+        question: "A bag has 4 red and 6 green sweets. One is picked at random. What is P(green)?",
+        options: ["2/5", "3/5", "1/6", "2/3"],
+        answer: 1,
+        explanation: "There are 10 sweets and 6 are green, so P(green) = 6/10 = 3/5."
+      },
+      {
+        question: "Two fair coins are tossed. What is the probability of getting two tails?",
+        options: ["1/2", "1/4", "3/4", "1/3"],
+        answer: 1,
+        explanation: "The coins are independent: P = 1/2 × 1/2 = 1/4. (Outcomes: HH, HT, TH, TT, and only TT works.)"
+      },
+      {
+        question: "Events A and B are independent, with P(A) = 0.2 and P(B) = 0.5. What is P(A and B)?",
+        options: ["0.7", "0.25", "0.3", "0.1"],
+        answer: 3,
+        explanation: "For independent events, multiply: 0.2 × 0.5 = 0.1."
+      }
+    ]
+  },
+
   /* ---------------- PHYSICS ---------------- */
+  {
+    id: "pressure",
+    subject: "Physics",
+    level: "Form 2",
+    title: "Pressure",
+    summary: "Understand pressure in solids and liquids, and calculate it using P = F/A and P = hρg.",
+    formulas: [
+      "Pressure: P = F / A",
+      "Pressure in a liquid: P = hρg",
+      "1 pascal (Pa) = 1 N/m²",
+      "Atmospheric pressure ≈ 101 325 Pa (760 mmHg)"
+    ],
+    notes: [
+      {
+        heading: "Pressure in solids",
+        body: "Pressure is the force acting <b>perpendicularly</b> on a unit area.<div class='formula'>P = F / A</div>The same force gives a <b>bigger</b> pressure on a <b>smaller</b> area. That is why knives are sharpened and why tractors have wide tyres (to reduce pressure on soft ground)."
+      },
+      {
+        heading: "Pressure in liquids",
+        body: "Pressure in a liquid increases with <b>depth</b> and with the <b>density</b> of the liquid:<div class='formula'>P = hρg</div>where h is depth (m), ρ is density (kg/m³) and g ≈ 10 N/kg. It does <b>not</b> depend on the shape of the container, and at any point it acts equally in all directions."
+      },
+      {
+        heading: "Atmospheric pressure",
+        body: "The air above us presses down on everything. At sea level it is about <b>101 325 Pa</b>, enough to hold up a column of mercury 760 mm tall. It decreases as you go higher above sea level."
+      }
+    ],
+    examples: [
+      {
+        question: "A box of weight 600 N rests on a face measuring 1.5 m by 0.4 m. Find the pressure it exerts on the floor.",
+        steps: [
+          "Area A = 1.5 × 0.4 = 0.6 m²",
+          "P = F / A = 600 / 0.6"
+        ],
+        answer: "P = 1000 Pa (1000 N/m²)"
+      },
+      {
+        question: "Find the pressure due to water at a depth of 5 m. (Density of water = 1000 kg/m³, g = 10 N/kg)",
+        steps: [
+          "h = 5 m, ρ = 1000 kg/m³, g = 10 N/kg",
+          "P = hρg = 5 × 1000 × 10"
+        ],
+        answer: "P = 50 000 Pa"
+      }
+    ],
+    quiz: [
+      {
+        question: "A force of 200 N acts on an area of 4 m². What is the pressure?",
+        options: ["800 Pa", "50 Pa", "204 Pa", "0.02 Pa"],
+        answer: 1,
+        explanation: "P = F / A = 200 / 4 = 50 Pa."
+      },
+      {
+        question: "What is the SI unit of pressure?",
+        options: ["Newton (N)", "Joule (J)", "Pascal (Pa)", "Watt (W)"],
+        answer: 2,
+        explanation: "Pressure is measured in pascals: 1 Pa = 1 N/m²."
+      },
+      {
+        question: "What is the pressure due to water at a depth of 10 m? (ρ = 1000 kg/m³, g = 10 N/kg)",
+        options: ["10 000 Pa", "1 000 Pa", "100 000 Pa", "1 000 000 Pa"],
+        answer: 2,
+        explanation: "P = hρg = 10 × 1000 × 10 = 100 000 Pa."
+      },
+      {
+        question: "Why is a sharp knife better for cutting than a blunt one?",
+        options: ["It has a smaller area, so it exerts a greater pressure", "It is heavier", "It has a larger area, so it exerts a greater pressure", "It reduces the force needed to zero"],
+        answer: 0,
+        explanation: "P = F / A: the thin edge has a tiny area, so the same force produces a much bigger pressure."
+      },
+      {
+        question: "Pressure at a point in a liquid does NOT depend on…",
+        options: ["the depth", "the density of the liquid", "the shape of the container", "the gravitational field strength"],
+        answer: 2,
+        explanation: "P = hρg depends only on depth, density and g, not on the shape of the container."
+      }
+    ]
+  },
+
   {
     id: "linear-motion",
     subject: "Physics",

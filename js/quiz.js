@@ -3,20 +3,14 @@
    options shuffled, marks instantly, explains the working,
    then shows the score and a review of every question.
    Keyboard: press 1–4 to choose, Enter for next.
+   quiz.html?id=mixed gives 10 random questions from ALL topics
+   (add &subject=Physics or &subject=Mathematics for one subject).
    ========================================================= */
 
 const params = new URLSearchParams(window.location.search);
-const topic = getTopicById(params.get("id"));
-
-const card = document.getElementById("quiz-card");
-const progressFill = document.getElementById("progress-fill");
-const progressText = document.getElementById("progress-text");
-
-let current = 0;      // index of the question being shown
-let score = 0;        // number of correct answers
-let answers = [];     // what the student chose, for the review
-let shuffled = [];    // current question's options in shuffled order
-let answered = false;
+const isMixed = params.get("id") === "mixed";
+const MIXED_COUNT = 10;
+let topic = isMixed ? buildMixedQuiz() : getTopicById(params.get("id"));
 
 /* Shuffle a copy of an array (Fisher–Yates) */
 function shuffle(array) {
@@ -27,6 +21,33 @@ function shuffle(array) {
   }
   return a;
 }
+
+/* A pretend "topic" made of random questions from every topic */
+function buildMixedQuiz() {
+  const subject = params.get("subject");
+  let pool = [];
+  TOPICS.forEach(function (t) {
+    if (subject && t.subject !== subject) return;
+    t.quiz.forEach(function (q) {
+      pool.push(Object.assign({}, q, { fromId: t.id, fromTitle: t.title, fromSubject: t.subject }));
+    });
+  });
+  return {
+    id: "mixed",
+    title: subject ? "Mixed " + subject + " Practice" : "Mixed Practice",
+    quiz: shuffle(pool).slice(0, MIXED_COUNT)
+  };
+}
+
+const card = document.getElementById("quiz-card");
+const progressFill = document.getElementById("progress-fill");
+const progressText = document.getElementById("progress-text");
+
+let current = 0;      // index of the question being shown
+let score = 0;        // number of correct answers
+let answers = [];     // what the student chose, for the review
+let shuffled = [];    // current question's options in shuffled order
+let answered = false;
 
 function showQuestion() {
   const q = topic.quiz[current];
@@ -45,7 +66,12 @@ function showQuestion() {
     return `<button class="option" data-index="${i}"><span class="key">${i + 1}</span>${opt.text}</button>`;
   }).join("");
 
+  const from = q.fromTitle
+    ? `<span class="tag ${subjectClass(q.fromSubject)} from-tag">${q.fromTitle}</span>`
+    : "";
+
   card.innerHTML = `
+    ${from}
     <p class="question">${q.question}</p>
     <div class="options">${options}</div>
     <div class="feedback" id="feedback" aria-live="polite"></div>`;
@@ -70,7 +96,9 @@ function checkAnswer(chosen) {
     question: q.question,
     chosen: shuffled[chosen].text,
     correct: q.options[q.answer],
-    isCorrect: isCorrect
+    isCorrect: isCorrect,
+    fromId: q.fromId,
+    fromTitle: q.fromTitle
   });
 
   // Lock the buttons and colour the right / wrong answers
@@ -118,29 +146,63 @@ function showResults() {
       </li>`;
   }).join("");
 
-  // Suggest the next topic in the list
-  const next = TOPICS[TOPICS.indexOf(topic) + 1];
+  // Suggest the next topic in the list (normal quizzes only)
+  const next = isMixed ? null : TOPICS[TOPICS.indexOf(topic) + 1];
+
+  // Mixed practice: list the topics the student got wrong
+  let revise = "";
+  if (isMixed) {
+    const weak = {};
+    answers.forEach(function (a) { if (!a.isCorrect) weak[a.fromId] = a.fromTitle; });
+    const ids = Object.keys(weak);
+    revise = ids.length
+      ? `<div class="revise"><b>Topics to revise:</b> ${ids.map(function (id) {
+          return `<a href="topic.html?id=${id}">${weak[id]}</a>`;
+        }).join(" · ")}</div>`
+      : `<div class="revise good-box"><b>Perfect!</b> No weak topics this round.</div>`;
+  }
+
+  const actions = isMixed
+    ? `<button class="btn btn-light" id="retry">Another ${MIXED_COUNT} questions</button>
+       <a class="btn" href="progress.html">My progress</a>`
+    : `<a class="btn btn-light" href="topic.html?id=${topic.id}">Review notes</a>
+       <button class="btn btn-light" id="retry">Try again</button>
+       ${next ? `<a class="btn" href="topic.html?id=${next.id}">Next topic →</a>` : `<a class="btn" href="progress.html">My progress</a>`}`;
 
   card.innerHTML = `
     <div class="results">
       <p class="big-score">${score} / ${total}</p>
       <p class="percent">${percent}%</p>
       <p>${message}</p>
-      <div class="card-actions center">
-        <a class="btn btn-light" href="topic.html?id=${topic.id}">Review notes</a>
-        <button class="btn btn-light" id="retry">Try again</button>
-        ${next ? `<a class="btn" href="topic.html?id=${next.id}">Next topic →</a>` : `<a class="btn" href="progress.html">My progress</a>`}
-      </div>
+      ${revise}
+      <div class="card-actions center">${actions}</div>
+      <button class="share-btn" id="share">📤 Share my score</button>
     </div>
     <h2 class="section-title">Review your answers</h2>
     <ol class="review">${review}</ol>`;
 
+  document.getElementById("share").addEventListener("click", function () {
+    shareScore(score, total, percent);
+  });
+
   document.getElementById("retry").addEventListener("click", function () {
+    if (isMixed) topic = buildMixedQuiz(); // fresh random questions
     current = 0;
     score = 0;
     answers = [];
     showQuestion();
   });
+}
+
+/* Share the score: the phone's share menu, or WhatsApp on computers */
+function shareScore(score, total, percent) {
+  const url = location.href.split("#")[0];
+  const text = `I scored ${score}/${total} (${percent}%) on the ${topic.title} quiz at MathPhysics Hub! Can you beat me?`;
+  if (navigator.share) {
+    navigator.share({ title: "MathPhysics Hub", text: text, url: url }).catch(function () { /* cancelled */ });
+  } else {
+    window.open("https://wa.me/?text=" + encodeURIComponent(text + " " + url), "_blank", "noopener");
+  }
 }
 
 /* Keyboard shortcuts */
@@ -158,7 +220,13 @@ if (!topic) {
 } else {
   document.title = topic.title + " Quiz — MathPhysics Hub";
   document.getElementById("quiz-title").textContent = topic.title + " Quiz";
-  document.getElementById("breadcrumb").innerHTML =
-    `<a href="index.html">Topics</a> › <a href="topic.html?id=${topic.id}">${topic.title}</a> › <span>Quiz</span>`;
+  document.getElementById("breadcrumb").innerHTML = isMixed
+    ? `<a href="index.html">Topics</a> › <span>Mixed Practice</span>
+       <span class="subject-switch">
+         <a href="quiz.html?id=mixed"${!params.get("subject") ? ' class="on"' : ""}>All</a>
+         <a href="quiz.html?id=mixed&subject=Mathematics"${params.get("subject") === "Mathematics" ? ' class="on"' : ""}>Maths</a>
+         <a href="quiz.html?id=mixed&subject=Physics"${params.get("subject") === "Physics" ? ' class="on"' : ""}>Physics</a>
+       </span>`
+    : `<a href="index.html">Topics</a> › <a href="topic.html?id=${topic.id}">${topic.title}</a> › <span>Quiz</span>`;
   showQuestion();
 }

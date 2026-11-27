@@ -14,6 +14,7 @@ if (!topic) {
   document.getElementById("examples-section").hidden = true;
 } else {
   document.title = topic.title + " — MathPhysics Hub";
+  recordActivity(topic.id); // counts towards the study streak, powers "Continue"
   const best = getBestScore(topic.id);
 
   // Breadcrumb: Topics › Mathematics › Quadratic Equations

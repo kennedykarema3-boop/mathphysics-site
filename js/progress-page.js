@@ -18,7 +18,18 @@ function renderProgressPage() {
   document.getElementById("summary").innerHTML = `
     <div class="stat"><b>${attempted.length}/${TOPICS.length}</b><span>topics attempted</span></div>
     <div class="stat"><b>${mastered.length}</b><span>mastered (80%+)</span></div>
-    <div class="stat"><b>${average}%</b><span>average best score</span></div>`;
+    <div class="stat"><b>${average}%</b><span>average best score</span></div>
+    <div class="stat"><b>${getStreak()} 🔥</b><span>day study streak</span></div>`;
+
+  // Mixed practice summary (only shown once the student has tried it)
+  const mixed = progress.mixed;
+  document.getElementById("mixed-summary").innerHTML = mixed
+    ? `<div class="progress-item mixed-item">
+        <div class="progress-item-top"><b>🎯 Mixed Practice</b>
+        <a class="btn btn-small" href="quiz.html?id=mixed">Practise again</a></div>
+        <span class="muted">Best ${mixed.score}/${mixed.total} · Last ${mixed.last}/${mixed.total} · ${mixed.attempts} round${mixed.attempts === 1 ? "" : "s"}</span>
+      </div>`
+    : "";
 
   document.getElementById("progress-list").innerHTML = TOPICS.map(function (t) {
     const p = progress[t.id];
