@@ -17,6 +17,7 @@ in a browser, or in VS Code right-click `index.html` → "Open with Live Server"
 | `quiz.html?id=mixed` | Mixed Practice: 10 random questions from all topics          |
 | `kcse.html` | KCSE-style Mathematics and Physics objective practice: 15 questions per subject |
 | `past-papers.html` | Year-labelled Mathematics and Physics past-paper archives, 2011–2025 |
+| `exam-room.html` | Timed KCSE exam room with countdown, answer booklet, auto-submit and self-marking |
 | `structured-papers.html` | Four timed structured papers with working space and self-marking schemes |
 | `offline.html`    | Shown if a student opens a page offline that was never saved    |
 
@@ -50,6 +51,7 @@ If you add a new page or JS file, also add it to the `FILES` list in `sw.js`.
 ```
 every page ──loads──> js/data.js      (all the content)
            ──loads──> js/progress.js  (saved scores)
+exam-room.html ──loads──> js/past-papers-data.js + js/exam-room.js
 structured-papers.html ──loads──> js/structured-papers.js + js/structured-exam.js
            ──loads──> js/layout.js    (shared header, menu, footer, dark mode)
            ──loads──> its own script  (home.js, topic.js, quiz.js, ...)
@@ -57,7 +59,7 @@ structured-papers.html ──loads──> js/structured-papers.js + js/structure
 ```
 
 - **Menu:** edit `NAV_LINKS` at the top of `js/layout.js` once, and it changes on every page.
-- **Content:** edit `js/data.js` and `js/extra-topics.js` and `js/new-topics.js` for lesson content; edit `js/past-papers-data.js` for year-labelled external archives and `js/kcse-data.js` for the objective practice bank and `js/structured-papers.js` for timed structured papers. The home page, topic pages, quizzes,
+- **Content:** edit `js/data.js` and `js/extra-topics.js` and `js/new-topics.js` for lesson content; edit `js/past-papers-data.js` for year-labelled external archives; `js/exam-room.js` controls official-time timed sittings and `js/kcse-data.js` for the objective practice bank and `js/structured-papers.js` for timed structured papers. The home page, topic pages, quizzes,
   formula sheet and progress page all update automatically.
 - **Colours:** edit `:root` (light) and `[data-theme="dark"]` at the top of `css/style.css`.
 
