@@ -45,6 +45,10 @@
       </label>
     </div>
     <div class="exam-paper-meta" id="paper-meta"></div>
+    <label class="paper-file-label" for="question-pdf">Downloaded question paper (PDF)
+      <input id="question-pdf" type="file" accept="application/pdf,.pdf">
+    </label>
+    <p id="file-ready-status" class="muted small">Choose the correct PDF for the selected subject, year and paper after downloading it from the source archive.</p>
     <div class="exam-source-panel">
       <b>Question paper and marking scheme source</b>
       <p id="source-help">Select the subject, year and paper. The source page lists available PDFs for that year.</p>
@@ -80,10 +84,17 @@
     </div>
     <div class="exam-progress-track"><div id="time-progress"></div></div>
     <div class="exam-live-actions">
-      <a class="btn btn-light" id="active-paper-source" href="#" target="_blank" rel="noopener noreferrer">Open selected-year question PDF archive ↗</a>
+      <a class="btn btn-light" id="active-paper-source" href="#" target="_blank" rel="noopener noreferrer">Open paper source archive ↗</a>
+      <label class="active-file-label">Re-select downloaded PDF
+        <input id="resume-question-pdf" type="file" accept="application/pdf,.pdf">
+      </label>
       <button class="btn btn-light" id="fullscreen-btn" type="button">Enter full screen</button>
       <button class="btn btn-light" id="print-answers" type="button">Print answer booklet</button>
     </div>
+    <section class="exam-pdf-panel">
+      <div id="pdf-status" class="muted">Your selected question paper will appear here.</div>
+      <iframe id="paper-preview" title="KCSE question paper PDF" hidden></iframe>
+    </section>
     <div class="exam-notice exam-warning">
       <b>Keep examination conditions:</b> The timer is running. The paper source opens in another tab. Return to this tab to record your answers. You cannot pause the countdown.
     </div>
