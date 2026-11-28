@@ -330,8 +330,7 @@
   const stored = loadStored();
   if (stored && stored.status === "active") {
     session = stored;
-    if (session.endAt <= Date.now()) submitExam(true);
-    else renderActive();
+    renderActive();
   } else if (stored && stored.status === "submitted" &&
       (!params.get("subject") || (stored.subject === params.get("subject") &&
        stored.year === Number(params.get("year")) && stored.paper === Number(params.get("paper"))))) {
