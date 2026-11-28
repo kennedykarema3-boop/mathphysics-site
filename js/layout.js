@@ -1,21 +1,13 @@
-/* =========================================================
-   layout.js — the shared header, menu and footer, plus the
-   "install as an app" features. Every page has
-   <div id="site-header"></div> and <div id="site-footer"></div>;
-   this file fills them in.
-   To add a page to the menu, add ONE line to NAV_LINKS
-   below and it appears on every page.
-   ========================================================= */
-
 const NAV_LINKS = [
-  { href: "index.html",          label: "Topics",        page: "home" },
-  { href: "quiz.html?id=mixed",  label: "Practice",      page: "practice" },
-  { href: "kcse.html",            label: "KCSE Practice", page: "kcse" },
-  { href: "structured-papers.html", label: "Timed Exams",    page: "kcse" },
-  { href: "formulas.html",       label: "Formula Sheet", page: "formulas" },
-  { href: "simulation.html",     label: "Simulation",    page: "simulation" },
-  { href: "progress.html",       label: "My Progress",   page: "progress" },
-  { href: "about.html",          label: "About",         page: "about" }
+  { href: "index.html", label: "Topics", page: "home" },
+  { href: "quiz.html?id=mixed", label: "Practice", page: "practice" },
+  { href: "kcse.html", label: "KCSE Practice", page: "kcse" },
+  { href: "past-papers.html", label: "Past Papers", page: "past-papers" },
+  { href: "structured-papers.html", label: "Timed Exams", page: "kcse" },
+  { href: "formulas.html", label: "Formula Sheet", page: "formulas" },
+  { href: "simulation.html", label: "Simulation", page: "simulation" },
+  { href: "progress.html", label: "My Progress", page: "progress" },
+  { href: "about.html", label: "About", page: "about" }
 ];
 
 /* ---------- Small storage helpers (never crash if storage is blocked) ---------- */
