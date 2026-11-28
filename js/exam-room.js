@@ -296,6 +296,9 @@
   yearSelect.addEventListener("change", updateSetup);
   paperSelect.addEventListener("change", updateSetup);
   $("begin-exam").addEventListener("click", beginExam);
+  $("paper-ready").addEventListener("change", () => {
+    $("begin-exam").disabled = !$("paper-ready").checked;
+  });
   $("submit-exam").addEventListener("click", () => submitExam(false));
   $("add-answer").addEventListener("click", () => {
     if (!session || session.status !== "active") return;
