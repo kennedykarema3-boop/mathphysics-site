@@ -38,13 +38,21 @@
    p2.className="btn btn-light";
    p2.href=timedHref(item.year,2);
    p2.textContent="Timed Paper 2";
+   actions.append(p1,p2);
+   if(subject==="Physics"){
+    const p3=document.createElement("a");
+    p3.className="btn btn-light";
+    p3.href=timedHref(item.year,3);
+    p3.textContent="Timed Paper 3 (practical, where available)";
+    actions.append(p3);
+   }
    const open=document.createElement("a");
    open.className="text-link";
    open.href=item.url;
    open.target="_blank";
    open.rel="noopener noreferrer";
    open.textContent="Open " + item.year + " paper archive ↗";
-   actions.append(p1,p2,open);
+   actions.append(open);
    article.append(head,title,note,actions);
    grid.appendChild(article);
   });
