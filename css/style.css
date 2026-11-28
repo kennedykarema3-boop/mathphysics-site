@@ -622,3 +622,51 @@ a.today-card:hover { outline: 2px solid var(--primary); }
 .past-paper-card p{min-height:42px;color:var(--muted);font-size:.9rem}
 .past-paper-actions{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:14px}
 .text-link{color:var(--primary);font-weight:700;text-decoration:underline}
+
+/* ---------- KCSE past-paper exam room ---------- */
+.exam-room-main{max-width:1080px}
+.exam-room-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(18px,3vw,30px);box-shadow:var(--shadow);margin-bottom:28px}
+.exam-kicker{letter-spacing:.13em;font-size:.76rem;font-weight:800;color:var(--accent);margin-bottom:6px}
+.exam-setup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:20px 0}
+.exam-setup-grid label,.self-mark-panel label{display:flex;flex-direction:column;gap:6px;font-weight:700}
+.exam-setup-grid input,.exam-setup-grid select,.self-mark-row input{width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font:inherit}
+.exam-paper-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px;background:var(--primary-soft);border-radius:10px;margin:16px 0}
+.exam-paper-meta span{color:var(--muted)}
+.exam-source-panel,.exam-rules,.self-mark-panel{padding:16px;border:1px solid var(--border);border-radius:10px;margin:15px 0}
+.exam-source-panel p,.exam-rules li{color:var(--muted)}
+.exam-begin-btn{min-width:220px;margin:12px 0}
+.exam-live-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;flex-wrap:wrap}
+.exam-live-top h1{margin:0}
+.exam-clock-wrap{min-width:190px;text-align:center;padding:12px 18px;border-radius:12px;background:var(--primary-soft)}
+.exam-clock-large{font-size:clamp(1.8rem,4vw,2.8rem);font-variant-numeric:tabular-nums;font-weight:900;color:var(--primary)}
+.exam-clock-large.time-low{color:var(--bad)}
+.exam-progress-track{height:8px;background:var(--border);border-radius:99px;overflow:hidden;margin:8px 0 16px}
+.exam-progress-track>div{height:100%;width:100%;background:var(--accent);transition:width .5s linear}
+.exam-live-actions,.exam-finish-actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.exam-warning{border-color:var(--accent)}
+.answer-booklet{padding:18px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin:20px 0}
+.answer-booklet-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:12px}
+.answer-row{display:grid;grid-template-columns:minmax(110px,155px) minmax(0,1fr);gap:14px;padding:15px 0;border-top:1px solid var(--border)}
+.answer-number,.answer-work{display:flex;flex-direction:column;gap:7px;font-weight:700}
+.answer-number input,.answer-work textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font:inherit}
+.answer-work textarea{min-height:105px;resize:vertical;font-weight:400}
+.exam-submit-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0 35px}
+.exam-finish-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:18px 0}
+.exam-finish-stats>div{padding:14px;border-radius:9px;background:var(--primary-soft);display:flex;flex-direction:column;gap:5px}
+.exam-finish-stats span{color:var(--muted);font-size:.83rem}
+.exam-finish-stats strong{font-size:1.15rem;color:var(--primary)}
+.self-mark-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.self-mark-row input{max-width:150px}
+.self-mark-row span{font-weight:800}
+.exam-room-page.exam-running #site-header,.exam-room-page.exam-running #site-footer{display:none}
+.exam-room-page.exam-running .exam-room-main{max-width:1120px}
+.exam-room-page.exam-running .breadcrumb{display:none}
+.small{font-size:.86rem}
+@media(max-width:650px){.answer-row{grid-template-columns:1fr}.exam-live-top{align-items:stretch}.exam-clock-wrap{width:100%}.exam-submit-row{align-items:stretch}.exam-submit-row .btn{width:100%}}
+@media print{
+  #site-header,#site-footer,.no-print,.exam-live-actions,.exam-submit-row,.exam-breadcrumb{display:none!important}
+  .exam-room-page{background:#fff!important;color:#000!important}
+  .answer-booklet,.exam-room-card{box-shadow:none;border:0;padding:0}
+  .answer-row{break-inside:avoid;border-color:#aaa}
+  .answer-number input,.answer-work textarea{background:#fff!important;color:#000!important;border:1px solid #999;min-height:70px}
+}
