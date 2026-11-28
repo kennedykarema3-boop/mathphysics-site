@@ -15,7 +15,8 @@ in a browser, or in VS Code right-click `index.html` → "Open with Live Server"
 | `progress.html`   | Scores, attempts and mastery for every topic                    |
 | `about.html`      | Your story and contact details (edit this!)                     |
 | `quiz.html?id=mixed` | Mixed Practice: 10 random questions from all topics          |
-| `kcse.html` | KCSE-style Mathematics and Physics practice: 15 questions per subject |
+| `kcse.html` | KCSE-style Mathematics and Physics objective practice: 15 questions per subject |
+| `structured-papers.html` | Four timed structured papers with working space and self-marking schemes |
 | `offline.html`    | Shown if a student opens a page offline that was never saved    |
 
 ## Install as an app (PWA)
@@ -48,13 +49,14 @@ If you add a new page or JS file, also add it to the `FILES` list in `sw.js`.
 ```
 every page ──loads──> js/data.js      (all the content)
            ──loads──> js/progress.js  (saved scores)
+structured-papers.html ──loads──> js/structured-papers.js + js/structured-exam.js
            ──loads──> js/layout.js    (shared header, menu, footer, dark mode)
            ──loads──> its own script  (home.js, topic.js, quiz.js, ...)
            ──uses───> css/style.css   (all the styling)
 ```
 
 - **Menu:** edit `NAV_LINKS` at the top of `js/layout.js` once, and it changes on every page.
-- **Content:** edit `js/data.js` and `js/extra-topics.js` for lesson content; edit `js/kcse-data.js` for the subject practice bank. The home page, topic pages, quizzes,
+- **Content:** edit `js/data.js` and `js/extra-topics.js` for lesson content; edit `js/kcse-data.js` for the objective practice bank and `js/structured-papers.js` for timed structured papers. The home page, topic pages, quizzes,
   formula sheet and progress page all update automatically.
 - **Colours:** edit `:root` (light) and `[data-theme="dark"]` at the top of `css/style.css`.
 
