@@ -1,9 +1,13 @@
+/* Render year-by-year archive links and direct timed-exam entry points. */
 (function(){
  const buttons=document.querySelectorAll("#past-paper-subjects .filter");
  const yearSelect=document.getElementById("past-year");
  const grid=document.getElementById("past-paper-grid");
  const archiveLink=document.getElementById("open-full-archive");
  let subject="Mathematics";
+ function timedHref(year,paper){
+  return "exam-room.html?subject="+encodeURIComponent(subject)+"&year="+year+"&paper="+paper;
+ }
  function render(){
   const data=KCSE_PAST_PAPER_ARCHIVES[subject];
   archiveLink.href=data.archive;
@@ -26,19 +30,21 @@
    note.textContent=item.note;
    const actions=document.createElement("div");
    actions.className="past-paper-actions";
+   const p1=document.createElement("a");
+   p1.className="btn";
+   p1.href=timedHref(item.year,1);
+   p1.textContent="Timed Paper 1";
+   const p2=document.createElement("a");
+   p2.className="btn btn-light";
+   p2.href=timedHref(item.year,2);
+   p2.textContent="Timed Paper 2";
    const open=document.createElement("a");
-   open.className="btn";
+   open.className="text-link";
    open.href=item.url;
    open.target="_blank";
    open.rel="noopener noreferrer";
-   open.textContent="Open "+item.year+" archive ↗";
-   const browse=document.createElement("a");
-   browse.className="text-link";
-   browse.href=data.archive;
-   browse.target="_blank";
-   browse.rel="noopener noreferrer";
-   browse.textContent="Browse "+subject+" file index";
-   actions.append(open,browse);
+   open.textContent="Open " + item.year + " paper archive ↗";
+   actions.append(p1,p2,open);
    article.append(head,title,note,actions);
    grid.appendChild(article);
   });
