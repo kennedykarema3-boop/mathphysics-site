@@ -18,9 +18,11 @@
   const sourceLink = $("open-question-source");
   const paperMeta = $("paper-meta");
   const answerRows = $("answer-rows");
-
+  const setupPdfInput = $("question-pdf");
+  const resumePdfInput = $("resume-question-pdf");
   let session = null;
   let tickHandle = null;
+  let currentPdfUrl = null;
 
   function durationFor(subject) {
     return subject === "Mathematics" ? 150 : 120;
@@ -67,6 +69,30 @@
       "</strong><span>" + time + " · " + details.totalMarks + " marks</span>";
     sourceLink.href = details.sourceUrl;
     $("source-help").textContent = sourceDescription(details.subject, details.year);
+  }
+
+  function isPdfFile(file) {
+    return Boolean(file && (file.type === "application/pdf" || /\\.pdf$/i.test(file.name || "")));
+  }
+
+  function showLocalPdf(file) {
+    if (!isPdfFile(file)) {
+      window.alert("Please select a PDF question paper.");
+      return false;
+    }
+    if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
+    currentPdfUrl = URL.createObjectURL(file);
+    $("paper-preview").src = currentPdfUrl;
+    $("paper-preview").hidden = false;
+    $("pdf-status").textContent = "Loaded on this device: " + file.name + ". This file is not uploaded to MathPhysics Hub.";
+    return true;
+  }
+
+  function updateReadyButton() {
+    $("begin-exam").disabled = !($("paper-ready").checked && isPdfFile(setupPdfInput.files[0]));
+    $("file-ready-status").textContent = isPdfFile(setupPdfInput.files[0])
+      ? "Selected: " + setupPdfInput.files[0].name + ". Ready to begin when the confirmation box is checked."
+      : "Choose the correct PDF for the selected subject, year and paper after downloading it from the source archive.";
   }
 
   function safeStore(value) {
@@ -163,6 +189,14 @@
     const candidate = [session.candidateName, session.indexNumber ? "Index: " + session.indexNumber : ""].filter(Boolean).join(" · ");
     $("live-candidate").textContent = candidate || "Candidate details not supplied";
     $("active-paper-source").href = session.sourceUrl;
+    const selectedFile = setupPdfInput.files && setupPdfInput.files[0];
+    if (isPdfFile(selectedFile)) showLocalPdf(selectedFile);
+    else {
+      $("paper-preview").hidden = true;
+      $("pdf-status").textContent = session.paperFileName
+        ? "Your exam session has resumed. Re-select the downloaded PDF to restore the paper preview; the countdown has continued."
+        : "Select the downloaded PDF above to view the question paper here.";
+    }
     renderAnswers(session.answers, true);
     $("live-deadline").textContent = "Started " + new Date(session.startedAt).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
     startClock();
@@ -215,8 +249,13 @@
   }
 
   function beginExam() {
+    const questionFile = setupPdfInput.files[0];
+    if (!isPdfFile(questionFile)) {
+      window.alert("Select the downloaded KCSE question paper PDF before starting.");
+      return;
+    }
     if (!$("paper-ready").checked) {
-      window.alert("Download or print the selected question paper before starting the examination.");
+      window.alert("Confirm that the selected PDF is the correct paper and you are ready to begin.");
       return;
     }
     if (loadStored() && loadStored().status === "active") {
@@ -231,6 +270,7 @@
       ...details,
       candidateName: $("candidate-name").value.trim(),
       indexNumber: $("candidate-index").value.trim(),
+      paperFileName: questionFile.name,
       startedAt: now,
       endAt: now + details.durationMinutes * 60000,
       answers: [{question:"1",answer:""}],
@@ -296,8 +336,11 @@
   yearSelect.addEventListener("change", updateSetup);
   paperSelect.addEventListener("change", updateSetup);
   $("begin-exam").addEventListener("click", beginExam);
-  $("paper-ready").addEventListener("change", () => {
-    $("begin-exam").disabled = !$("paper-ready").checked;
+  $("paper-ready").addEventListener("change", updateReadyButton);
+  setupPdfInput.addEventListener("change", updateReadyButton);
+  resumePdfInput.addEventListener("change", () => {
+    const file = resumePdfInput.files[0];
+    if (file) showLocalPdf(file);
   });
   $("submit-exam").addEventListener("click", () => submitExam(false));
   $("add-answer").addEventListener("click", () => {
@@ -319,6 +362,13 @@
     clearStored();
     $("paper-ready").checked = false;
     $("begin-exam").disabled = true;
+    setupPdfInput.value = "";
+    resumePdfInput.value = "";
+    if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
+    currentPdfUrl = null;
+    $("paper-preview").removeAttribute("src");
+    $("paper-preview").hidden = true;
+    $("pdf-status").textContent = "Your selected question paper will appear here.";
     document.body.classList.remove("exam-running");
     finished.hidden = true;
     setup.hidden = false;
