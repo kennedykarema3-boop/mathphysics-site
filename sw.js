@@ -8,7 +8,7 @@
    phones to download the new files.
    ========================================================= */
 
-const CACHE_NAME = "mathphysics-v4";
+const CACHE_NAME = "mathphysics-v5";
 
 // Every file the app needs to work offline
 const FILES = [
@@ -17,6 +17,7 @@ const FILES = [
   "topic.html",
   "quiz.html",
   "kcse.html",
+  "structured-papers.html",
   "formulas.html",
   "simulation.html",
   "progress.html",
@@ -27,6 +28,8 @@ const FILES = [
   "js/extra-topics.js",
   "js/kcse-data.js",
   "js/kcse.js",
+  "js/structured-papers.js",
+  "js/structured-exam.js",
   "js/progress.js",
   "js/layout.js",
   "js/home.js",
