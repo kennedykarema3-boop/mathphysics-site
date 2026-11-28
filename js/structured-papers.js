@@ -64,7 +64,7 @@ const STRUCTURED_PAPERS = [
  ]}
 ]},
 {
- id:"physics-p1",subject:"Physics",paper:"Paper 1",duration:135,totalMarks:80,
+ id:"physics-p1",subject:"Physics",paper:"Paper 1",duration:120,totalMarks:80,
  instructions:["Answer ALL questions.","Take g = 10 N/kg unless otherwise stated.","Show formula, substitution and correct SI units in calculations."],
  questions:[
  {number:1,marks:16,parts:[
@@ -94,7 +94,7 @@ const STRUCTURED_PAPERS = [
  ]}
 ]},
 {
- id:"physics-p2",subject:"Physics",paper:"Paper 2",duration:135,totalMarks:80,
+ id:"physics-p2",subject:"Physics",paper:"Paper 2",duration:120,totalMarks:80,
  instructions:["Answer ALL questions.","Use conventional symbols and units in calculations.","Draw clear labelled diagrams where requested."],
  questions:[
  {number:1,marks:16,parts:[
