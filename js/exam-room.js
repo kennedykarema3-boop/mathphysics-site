@@ -56,7 +56,7 @@
     if (subject === "Physics" && Number(paperSelect.value) === 3) return "Physics Paper 3 is the practical paper (2½ hours, 40 marks). Check the selected year archive for its practical PDF. The website provides a digital answer booklet, not laboratory apparatus.";
     if (subject === "Mathematics" && year >= 2017) return "Year-specific Mathematics " + year + " archive. Locate Paper " + paperSelect.value + " and download the question PDF. The standard sitting is Mathematics Alternative A (121); choose the matching version if alternatives are shown.";
     if (subject === "Physics" && (year === 2025 || year === 2020)) return "Year-specific Physics " + year + " archive. Locate Paper " + paperSelect.value + " and download the question PDF.";
-    return "Subject archive. Find the " + year + " KCSE " + subject + " Paper " + paperSelect.value + " file and download it before starting." + (subject === "Mathematics" ? " Choose Mathematics Alternative A (121) if the archive also lists Alternative B." : " This timed page covers theory Paper 1 or 2, not the practical Paper 3.");
+    return "Subject archive. Find the " + year + " KCSE " + subject + " Paper " + paperSelect.value + " file and download it before starting." + (subject === "Mathematics" ? " Choose Mathematics Alternative A (121) if the archive also lists Alternative B." : " This selection is the theory paper; Paper 3 practical is a separate timed option where the archive contains it.");
   }
 
   function selectedDetails() {
