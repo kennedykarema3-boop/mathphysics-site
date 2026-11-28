@@ -41,9 +41,9 @@
   }
 
   function sourceDescription(subject, year) {
-    if (subject === "Mathematics" && year >= 2017) return "Year-specific Mathematics " + year + " archive. Locate Paper " + paperSelect.value + " and download the question PDF.";
+    if (subject === "Mathematics" && year >= 2017) return "Year-specific Mathematics " + year + " archive. Locate Paper " + paperSelect.value + " and download the question PDF. The standard sitting is Mathematics Alternative A (121); choose the matching version if alternatives are shown.";
     if (subject === "Physics" && (year === 2025 || year === 2020)) return "Year-specific Physics " + year + " archive. Locate Paper " + paperSelect.value + " and download the question PDF.";
-    return "Subject archive. Find the " + year + " KCSE " + subject + " Paper " + paperSelect.value + " file and download it before starting.";
+    return "Subject archive. Find the " + year + " KCSE " + subject + " Paper " + paperSelect.value + " file and download it before starting." + (subject === "Mathematics" ? " Choose Mathematics Alternative A (121) if the archive also lists Alternative B." : " This timed page covers theory Paper 1 or 2, not the practical Paper 3.");
   }
 
   function selectedDetails() {
@@ -323,7 +323,9 @@
     session = stored;
     if (session.endAt <= Date.now()) submitExam(true);
     else renderActive();
-  } else if (stored && stored.status === "submitted") {
+  } else if (stored && stored.status === "submitted" &&
+      (!params.get("subject") || (stored.subject === params.get("subject") &&
+       stored.year === Number(params.get("year")) && stored.paper === Number(params.get("paper"))))) {
     session = stored;
     renderFinished();
   } else {
