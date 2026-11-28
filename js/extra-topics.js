@@ -163,3 +163,15 @@ TOPICS.push(
     ]
   }
 );
+
+
+/* Keep the first definition of each topic id so core lesson IDs never collide
+   with legacy appended content. */
+(function () {
+  const seen = new Set();
+  const unique = [];
+  TOPICS.forEach(function (topic) {
+    if (!seen.has(topic.id)) { seen.add(topic.id); unique.push(topic); }
+  });
+  TOPICS.splice(0, TOPICS.length, ...unique);
+})();
