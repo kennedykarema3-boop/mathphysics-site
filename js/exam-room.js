@@ -24,12 +24,22 @@
   let tickHandle = null;
   let currentPdfUrl = null;
 
-  function durationFor(subject) {
-    return subject === "Mathematics" ? 150 : 120;
+  function durationFor(subject, paper) {
+    if (subject === "Mathematics" || paper === 3) return 150;
+    return 120;
   }
 
-  function marksFor(subject) {
-    return subject === "Mathematics" ? 100 : 80;
+  function marksFor(subject, paper) {
+    if (subject === "Mathematics") return 100;
+    return paper === 3 ? 40 : 80;
+  }
+
+  function updatePaperOptions() {
+    const practical = paperSelect.querySelector('option[value="3"]');
+    const physics = subjectSelect.value === "Physics";
+    practical.hidden = !physics;
+    practical.disabled = !physics;
+    if (!physics && paperSelect.value === "3") paperSelect.value = "1";
   }
 
   function sourceFor(subject, year) {
@@ -43,6 +53,7 @@
   }
 
   function sourceDescription(subject, year) {
+    if (subject === "Physics" && Number(paperSelect.value) === 3) return "Physics Paper 3 is the practical paper (2½ hours, 40 marks). Check the selected year archive for its practical PDF. The website provides a digital answer booklet, not laboratory apparatus.";
     if (subject === "Mathematics" && year >= 2017) return "Year-specific Mathematics " + year + " archive. Locate Paper " + paperSelect.value + " and download the question PDF. The standard sitting is Mathematics Alternative A (121); choose the matching version if alternatives are shown.";
     if (subject === "Physics" && (year === 2025 || year === 2020)) return "Year-specific Physics " + year + " archive. Locate Paper " + paperSelect.value + " and download the question PDF.";
     return "Subject archive. Find the " + year + " KCSE " + subject + " Paper " + paperSelect.value + " file and download it before starting." + (subject === "Mathematics" ? " Choose Mathematics Alternative A (121) if the archive also lists Alternative B." : " This timed page covers theory Paper 1 or 2, not the practical Paper 3.");
@@ -56,8 +67,8 @@
       subject,
       year,
       paper,
-      durationMinutes: durationFor(subject),
-      totalMarks: marksFor(subject),
+      durationMinutes: durationFor(subject, paper),
+      totalMarks: marksFor(subject, paper),
       sourceUrl: sourceFor(subject, year)
     };
   }
@@ -176,7 +187,8 @@
     const paper = params.get("paper");
     if (subject === "Mathematics" || subject === "Physics") subjectSelect.value = subject;
     if (year && Number(year) >= 2011 && Number(year) <= 2025) yearSelect.value = year;
-    if (paper === "1" || paper === "2") paperSelect.value = paper;
+    updatePaperOptions();
+    if (paper === "1" || paper === "2" || (paper === "3" && subjectSelect.value === "Physics")) paperSelect.value = paper;
     updateSetup();
   }
 
@@ -332,7 +344,10 @@
     yearSelect.appendChild(option);
   }
 
-  subjectSelect.addEventListener("change", updateSetup);
+  subjectSelect.addEventListener("change", () => {
+    updatePaperOptions();
+    updateSetup();
+  });
   yearSelect.addEventListener("change", updateSetup);
   paperSelect.addEventListener("change", updateSetup);
   $("begin-exam").addEventListener("click", beginExam);
@@ -376,6 +391,7 @@
     updateSetup();
   });
 
+  updatePaperOptions();
   setPaperFromQuery();
   const stored = loadStored();
   if (stored && stored.status === "active") {
