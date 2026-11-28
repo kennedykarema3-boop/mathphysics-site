@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KCSE Exam Room — MathPhysics Hub</title>
+<meta name="description" content="Timed KCSE Mathematics and Physics past-paper exam practice.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f4e79">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+</head>
+<body data-page="past-papers" class="exam-room-page">
+<div id="site-header"></div>
+<main class="page wide exam-room-main">
+  <nav class="breadcrumb"><a href="past-papers.html">KCSE Past Papers</a> › <span>Exam Room</span></nav>
+  <section id="exam-setup" class="exam-room-card">
+    <p class="exam-kicker">EXAM SIMULATION</p>
+    <h1>KCSE Examination Room</h1>
+    <p class="lead">Choose one past paper, prepare the question PDF, then sit the paper under timed conditions.</p>
+    <div class="exam-notice">
+      <b>Before you begin:</b> Open the external paper source and download or print the selected question paper. Return here and start the timer only when you are ready. The clock cannot be paused. Do not open the marking scheme until you have submitted.
+    </div>
+    <div class="exam-setup-grid">
+      <label>Subject
+        <select id="setup-subject">
+          <option value="Mathematics">Mathematics</option>
+          <option value="Physics">Physics</option>
+        </select>
+      </label>
+      <label>Examination year
+        <select id="setup-year"></select>
+      </label>
+      <label>Paper
+        <select id="setup-paper">
+          <option value="1">Paper 1</option>
+          <option value="2">Paper 2</option>
+        </select>
+      </label>
+      <label>Candidate name (optional)
+        <input id="candidate-name" type="text" maxlength="80" autocomplete="name" placeholder="Enter your name">
+      </label>
+      <label>Index number (optional)
+        <input id="candidate-index" type="text" maxlength="30" placeholder="Enter index number">
+      </label>
+    </div>
+    <div class="exam-paper-meta" id="paper-meta"></div>
+    <div class="exam-source-panel">
+      <b>Question paper and marking scheme source</b>
+      <p id="source-help">Select the subject, year and paper. The source page lists available PDFs for that year.</p>
+      <a class="btn btn-light" id="open-question-source" href="#" target="_blank" rel="noopener noreferrer">Open paper source ↗</a>
+    </div>
+    <div class="exam-rules">
+      <h2>Exam-room rules</h2>
+      <ul>
+        <li>Use only the selected question paper and permitted stationery/calculator.</li>
+        <li>Show every calculation and working on paper or in the answer booklet.</li>
+        <li>Do not pause the timer. It continues if you change tabs or refresh this page.</li>
+        <li>When time reaches zero, your session is submitted automatically.</li>
+      </ul>
+    </div>
+    <button class="btn exam-begin-btn" id="begin-exam">Begin examination</button>
+    <p class="muted small">The original KNEC PDFs are hosted by external resources; MathPhysics Hub links to the source rather than republishing KNEC-owned documents.</p>
+  </section>
+
+  <section id="exam-active" hidden>
+    <div class="exam-live-top">
+      <div>
+        <p class="exam-kicker">EXAM IN PROGRESS</p>
+        <h1 id="live-title">KCSE Mathematics</h1>
+        <p id="live-candidate" class="muted"></p>
+      </div>
+      <div class="exam-clock-wrap">
+        <span class="muted">TIME REMAINING</span>
+        <div id="live-clock" class="exam-clock-large" role="timer" aria-live="off">02:30:00</div>
+        <span id="live-deadline" class="muted"></span>
+      </div>
+    </div>
+    <div class="exam-progress-track"><div id="time-progress"></div></div>
+    <div class="exam-live-actions">
+      <a class="btn btn-light" id="active-paper-source" href="#" target="_blank" rel="noopener noreferrer">Open / download question PDF ↗</a>
+      <button class="btn btn-light" id="fullscreen-btn" type="button">Enter full screen</button>
+      <button class="btn btn-light" id="print-answers" type="button">Print answer booklet</button>
+    </div>
+    <div class="exam-notice exam-warning">
+      <b>Keep examination conditions:</b> The timer is running. The paper source opens in another tab. Return to this tab to record your answers. You cannot pause the countdown.
+    </div>
+    <section class="answer-booklet">
+      <div class="answer-booklet-head">
+        <div><h2>Candidate answer booklet</h2><p class="muted">Record the question number and your answer or working. Your entries are saved on this device.</p></div>
+        <button class="btn btn-light no-print" id="add-answer" type="button">+ Add answer space</button>
+      </div>
+      <div id="answer-rows"></div>
+    </section>
+    <div class="exam-submit-row no-print">
+      <p class="muted">Submit when finished. The app records the time used and locks your answer booklet.</p>
+      <button class="btn btn-danger" id="submit-exam" type="button">Submit examination</button>
+    </div>
+  </section>
+
+  <section id="exam-finished" hidden class="exam-room-card">
+    <p class="exam-kicker">EXAM SUBMITTED</p>
+    <h1 id="finished-title">Examination completed</h1>
+    <div class="exam-finish-stats" id="finish-stats"></div>
+    <div class="exam-notice"><b>Self-marking:</b> Written answers are not automatically graded. Compare your work with the official marking scheme after submission, then enter your mark below to calculate your percentage.</div>
+    <div class="self-mark-panel">
+      <label for="self-mark-score">Your score after checking the marking scheme</label>
+      <div class="self-mark-row">
+        <input id="self-mark-score" type="number" min="0" step="1" placeholder="Enter marks">
+        <span id="self-mark-total">/ 100</span>
+        <button class="btn" id="save-self-mark" type="button">Save score</button>
+      </div>
+      <p id="self-mark-result" class="muted"></p>
+    </div>
+    <div class="exam-finish-actions">
+      <a class="btn btn-light" id="marking-scheme-source" href="#" target="_blank" rel="noopener noreferrer">Open marking scheme source ↗</a>
+      <button class="btn btn-light" id="print-finished-answers" type="button">Print submitted answers</button>
+      <button class="btn" id="new-exam" type="button">Start another examination</button>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/progress.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/past-papers-data.js"></script>
+<script src="js/exam-room.js"></script>
+</body>
+</html>
