@@ -139,7 +139,7 @@ TOPICS.push(
       {question:"A wave has frequency 20 Hz and wavelength 3 m. Find its speed.",options:["6.7 m/s","17 m/s","23 m/s","60 m/s"],answer:3,explanation:"v = fλ = 20 × 3 = 60 m/s."},
       {question:"Sound waves in air are…",options:["transverse","longitudinal","electromagnetic","stationary only"],answer:1,explanation:"Air particles vibrate back and forth parallel to the direction of sound travel."},
       {question:"The SI unit of frequency is…",options:["metre","second","hertz","watt"],answer:2,explanation:"Frequency is measured in hertz (Hz), equivalent to cycles per second."},
-      {question:"A sound echo returns after 2 s. If sound speed is 340 m/s, how far away is the wall?",options:["170 m","340 m","680 m","85 m"],answer:0,explanation:"The sound travels to the wall and back: distance = 340 × 2 / 2 = 340 m? Correct total path is 680 m, so one-way distance is 340 m."}
+      {question:"A sound echo returns after 2 s. If sound speed is 340 m/s, how far away is the wall?",options:["170 m","340 m","680 m","85 m"],answer:1,explanation:"The sound travels to the wall and back. Total path = 340 × 2 = 680 m; one-way distance = 680/2 = 340 m."}
     ]
   },
   {
