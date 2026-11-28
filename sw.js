@@ -8,7 +8,7 @@
    phones to download the new files.
    ========================================================= */
 
-const CACHE_NAME = "mathphysics-v8";
+const CACHE_NAME = "mathphysics-v9";
 
 // Every file the app needs to work offline
 const FILES = [
