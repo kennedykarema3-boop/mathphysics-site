@@ -210,8 +210,8 @@
       $("live-clock").classList.toggle("time-low", remaining <= 5 * 60000);
       if (remaining <= 0) submitExam(true);
     }
-    tick();
     tickHandle = window.setInterval(tick, 1000);
+    tick();
   }
 
   function beginExam() {
@@ -264,11 +264,15 @@
     safeStore(session);
     let history = [];
     try { history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch (e) { history = []; }
-    history.push({
+    const resultRecord = {
       subject: session.subject, year: session.year, paper: session.paper,
       score, total: session.totalMarks, percentage: Math.round(score / session.totalMarks * 100),
       submittedAt: session.submittedAt
-    });
+    };
+    const existingIndex = history.findIndex(item => item.submittedAt === session.submittedAt &&
+      item.subject === session.subject && item.year === session.year && item.paper === session.paper);
+    if (existingIndex >= 0) history[existingIndex] = resultRecord;
+    else history.push(resultRecord);
     try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(-100))); } catch (e) { /* ignore */ }
     $("self-mark-result").textContent = "Score saved: " + score + " / " + session.totalMarks + " (" + Math.round(score / session.totalMarks * 100) + "%).";
   }
