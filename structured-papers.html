@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structured KCSE Examination Papers — MathPhysics Hub</title>
+<link rel="stylesheet" href="css/style.css"><link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f4e79"><link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+</head>
+<body data-page="kcse">
+<div id="site-header"></div>
+<main class="page wide">
+<nav class="breadcrumb"><a href="kcse.html">KCSE Practice</a> › <span>Structured Examination</span></nav>
+<h1>Structured KCSE Examination Papers</h1>
+<p class="lead">Attempt full-length practice papers under timed conditions. Write your working, submit when finished, then use the detailed marking scheme to award yourself marks.</p>
+<div class="exam-notice"><b>Important:</b> These are original KCSE-style practice papers, not official KNEC past papers. Written responses are self-marked against the model scheme; the app does not automatically judge your written working.</div>
+<section class="exam-picker" id="exam-picker">
+<h2>Choose an examination</h2>
+<div class="exam-grid">
+<button class="exam-choice" data-paper="math-p1"><b>Mathematics Paper 1</b><span>2 hours 30 minutes · 100 marks</span></button>
+<button class="exam-choice" data-paper="math-p2"><b>Mathematics Paper 2</b><span>2 hours 30 minutes · 100 marks</span></button>
+<button class="exam-choice" data-paper="physics-p1"><b>Physics Paper 1</b><span>2 hours 15 minutes · 80 marks</span></button>
+<button class="exam-choice" data-paper="physics-p2"><b>Physics Paper 2</b><span>2 hours 15 minutes · 80 marks</span></button>
+</div>
+</section>
+<section id="exam-workspace" hidden>
+<div class="exam-toolbar">
+<div><span class="exam-subject" id="exam-name"></span><p id="exam-meta" class="muted"></p></div>
+<div class="exam-clock" id="exam-clock" role="timer" aria-live="off">02:30:00</div>
+</div>
+<div class="exam-instructions"><b>Instructions</b><ul id="exam-instructions"></ul></div>
+<div id="exam-questions"></div>
+<div class="exam-actions"><button class="btn" id="submit-exam">Submit examination</button><button class="btn btn-light" id="back-papers">Choose another paper</button></div>
+</section>
+<section id="exam-results" hidden></section>
+</main>
+<div id="site-footer"></div>
+<script src="js/progress.js"></script><script src="js/layout.js"></script>
+<script src="js/structured-papers.js"></script><script src="js/structured-exam.js"></script>
+</body></html>
