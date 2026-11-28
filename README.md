@@ -15,6 +15,7 @@ in a browser, or in VS Code right-click `index.html` → "Open with Live Server"
 | `progress.html`   | Scores, attempts and mastery for every topic                    |
 | `about.html`      | Your story and contact details (edit this!)                     |
 | `quiz.html?id=mixed` | Mixed Practice: 10 random questions from all topics          |
+| `kcse.html` | KCSE-style Mathematics and Physics practice: 15 questions per subject |
 | `offline.html`    | Shown if a student opens a page offline that was never saved    |
 
 ## Install as an app (PWA)
@@ -53,7 +54,7 @@ every page ──loads──> js/data.js      (all the content)
 ```
 
 - **Menu:** edit `NAV_LINKS` at the top of `js/layout.js` once, and it changes on every page.
-- **Content:** edit `js/data.js` only. The home page, topic pages, quizzes,
+- **Content:** edit `js/data.js` and `js/extra-topics.js` for lesson content; edit `js/kcse-data.js` for the subject practice bank. The home page, topic pages, quizzes,
   formula sheet and progress page all update automatically.
 - **Colours:** edit `:root` (light) and `[data-theme="dark"]` at the top of `css/style.css`.
 
