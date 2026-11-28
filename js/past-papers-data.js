@@ -40,3 +40,15 @@ const KCSE_PAST_PAPER_ARCHIVES = {
   ]
  }
 };
+/* Prefer verified year pages where available; otherwise send students to the
+   subject's year-labelled file index. */
+KCSE_PAST_PAPER_ARCHIVES.Mathematics.years.forEach(function (item) {
+  item.url = item.year >= 2017
+    ? "https://www.masomofiti.co.ke/kcse-past-papers/mathematics/" + item.year
+    : KCSE_PAST_PAPER_ARCHIVES.Mathematics.archive;
+});
+KCSE_PAST_PAPER_ARCHIVES.Physics.years.forEach(function (item) {
+  item.url = (item.year === 2025 || item.year === 2020)
+    ? "https://www.masomofiti.co.ke/kcse-past-papers/physics/" + item.year
+    : KCSE_PAST_PAPER_ARCHIVES.Physics.archive;
+});
