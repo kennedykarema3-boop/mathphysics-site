@@ -8,7 +8,7 @@
    phones to download the new files.
    ========================================================= */
 
-const CACHE_NAME = "mathphysics-v2";
+const CACHE_NAME = "mathphysics-v3";
 
 // Every file the app needs to work offline
 const FILES = [
@@ -42,7 +42,12 @@ const FILES = [
 // 1. Install: download and save all the files
 self.addEventListener("install", function (event) {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) { return cache.addAll(FILES); })
+    caches.open(CACHE_NAME).then(function (cache) {
+      // Save each file separately so one missing file can't break offline mode
+      return Promise.all(FILES.map(function (f) {
+        return cache.add(f).catch(function () { console.warn("Could not cache:", f); });
+      }));
+    })
   );
 });
 
