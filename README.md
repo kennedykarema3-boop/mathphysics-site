@@ -16,6 +16,7 @@ in a browser, or in VS Code right-click `index.html` → "Open with Live Server"
 | `about.html`      | Your story and contact details (edit this!)                     |
 | `quiz.html?id=mixed` | Mixed Practice: 10 random questions from all topics          |
 | `kcse.html` | KCSE-style Mathematics and Physics objective practice: 15 questions per subject |
+| `past-papers.html` | Year-labelled Mathematics and Physics past-paper archives, 2011–2025 |
 | `structured-papers.html` | Four timed structured papers with working space and self-marking schemes |
 | `offline.html`    | Shown if a student opens a page offline that was never saved    |
 
@@ -56,7 +57,7 @@ structured-papers.html ──loads──> js/structured-papers.js + js/structure
 ```
 
 - **Menu:** edit `NAV_LINKS` at the top of `js/layout.js` once, and it changes on every page.
-- **Content:** edit `js/data.js` and `js/extra-topics.js` for lesson content; edit `js/kcse-data.js` for the objective practice bank and `js/structured-papers.js` for timed structured papers. The home page, topic pages, quizzes,
+- **Content:** edit `js/data.js` and `js/extra-topics.js` and `js/new-topics.js` for lesson content; edit `js/past-papers-data.js` for year-labelled external archives and `js/kcse-data.js` for the objective practice bank and `js/structured-papers.js` for timed structured papers. The home page, topic pages, quizzes,
   formula sheet and progress page all update automatically.
 - **Colours:** edit `:root` (light) and `[data-theme="dark"]` at the top of `css/style.css`.
 
@@ -82,7 +83,7 @@ structured-papers.html ──loads──> js/structured-papers.js + js/structure
 
 ## Ideas for the next version
 
-- More topics and KCSE past-paper questions (Probability and Pressure were added).
+- Expand the question bank and add more fully worked topic quizzes.
 - KaTeX library for textbook-style formulas.
 - User accounts and a database (Firebase or Supabase) so progress follows the student.
 - M-Pesa payments for premium content.
