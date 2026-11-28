@@ -215,6 +215,10 @@
   }
 
   function beginExam() {
+    if (!$("paper-ready").checked) {
+      window.alert("Download or print the selected question paper before starting the examination.");
+      return;
+    }
     if (loadStored() && loadStored().status === "active") {
       const existing = loadStored();
       if (existing.endAt > Date.now()) {
@@ -310,6 +314,8 @@
     if (!window.confirm("Start another examination? Your previous result remains saved in your exam history.")) return;
     session = null;
     clearStored();
+    $("paper-ready").checked = false;
+    $("begin-exam").disabled = true;
     document.body.classList.remove("exam-running");
     finished.hidden = true;
     setup.hidden = false;
