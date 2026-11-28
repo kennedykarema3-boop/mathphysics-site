@@ -72,7 +72,7 @@
   }
 
   function isPdfFile(file) {
-    return Boolean(file && (file.type === "application/pdf" || /\\.pdf$/i.test(file.name || "")));
+    return Boolean(file && (file.type === "application/pdf" || /\.pdf$/i.test(file.name || "")));
   }
 
   function showLocalPdf(file) {
