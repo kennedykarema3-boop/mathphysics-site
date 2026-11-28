@@ -10,6 +10,7 @@
 const NAV_LINKS = [
   { href: "index.html",          label: "Topics",        page: "home" },
   { href: "quiz.html?id=mixed",  label: "Practice",      page: "practice" },
+  { href: "kcse.html",            label: "KCSE Papers",   page: "kcse" },
   { href: "formulas.html",       label: "Formula Sheet", page: "formulas" },
   { href: "simulation.html",     label: "Simulation",    page: "simulation" },
   { href: "progress.html",       label: "My Progress",   page: "progress" },
