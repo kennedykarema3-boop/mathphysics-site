@@ -3,6 +3,7 @@ const NAV_LINKS = [
   { href: "quiz.html?id=mixed", label: "Practice", page: "practice" },
   { href: "kcse.html", label: "KCSE Practice", page: "kcse" },
   { href: "past-papers.html", label: "Past Papers", page: "past-papers" },
+  { href: "exam-room.html", label: "Exam Room", page: "exam-room" },
   { href: "structured-papers.html", label: "Timed Exams", page: "kcse" },
   { href: "formulas.html", label: "Formula Sheet", page: "formulas" },
   { href: "simulation.html", label: "Simulation", page: "simulation" },
